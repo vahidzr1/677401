@@ -1,0 +1,23 @@
+# 01_clean_data.py
+# Data cleaning script for the hybrid DSGE-LSTM forecasting model
+# Replicates the data preparation in the paper
+
+import pandas as pd
+
+# Load raw data
+df = pd.read_excel("../data/raw_data.csv")
+
+# Compute annualized quarter-on-quarter growth rates (400 * ?ln)
+df['gdp_growth']    = df['Real GDP Billions USD 2017'].pct_change(1) * 400
+df['cons_growth']   = df['Real Private Consumption (Billions USD 2017)'].pct_change(1) * 400
+df['inv_growth']    = df['Real Gross Fixed Investment (Billions USD 2017)'].pct_change(1) * 400
+df['inflation']     = df['Inflation Rate (CPI-U, %)']
+df['fed_rate']      = df['Federal Funds Effective Rate(%)']
+df['credit_spread'] = df['Credit Spread (?)']
+
+# Drop first row (contains NaN after pct_change)
+df = df.dropna().reset_index(drop=True)
+
+# Save cleaned dataset
+df.to_csv("../data/cleaned_data.csv", index=False)
+print("Data cleaning completed ? cleaned_data.csv created")
