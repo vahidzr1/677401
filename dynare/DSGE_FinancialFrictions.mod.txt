@@ -1,0 +1,37 @@
+var y c i g nx pi r s eps_r eps_s;
+varexog eps_r eps_s;
+
+parameters beta psi rho_r phi_pi phi_y rho_s sigma_r sigma_s;
+
+beta    = 0.99;
+psi     = 0.41;
+rho_r   = 0.78;
+phi_pi  = 1.68;
+phi_y   = 0.47;
+rho_s   = 0.87;
+sigma_r = 0.18;
+sigma_s = 0.52;
+
+model;
+y = c + i + g + nx - psi*s;
+pi = beta*pi(+1) + 0.24*(c - 0.7*y(-1));
+r = rho_r*r(-1) + (1-rho_r)*(phi_pi*pi + phi_y*y) + eps_r;
+s = rho_s*s(-1) + eps_s;
+end;
+
+shocks;
+var eps_r; stderr sigma_r;
+var eps_s; stderr sigma_s;
+end;
+
+estimated_params;
+phi_pi, normal_pdf, 1.5, 0.25;
+phi_y,  gamma_pdf, 0.5, 0.2;
+psi,    normal_pdf, 0.4, 0.1;
+rho_r,  beta_pdf,   0.75, 0.1;
+rho_s,  beta_pdf,   0.85, 0.1;
+stderr eps_r, inv_gamma_pdf, 0.2, 0.1;
+stderr eps_s, inv_gamma_pdf, 0.5, 0.2;
+end;
+
+estimation(datafile=../data/cleaned_data, mode_compute=4, mh_replic=500000, mh_nblocks=4);

@@ -1,0 +1,7 @@
+Dynare Version: 6.2
+Estimation completed successfully
+Log posterior density: -428.7
+Financial accelerator (psi): posterior median = 0.41 [0.37, 0.45]
+Interest rate smoothing (rho_r): 0.78 [0.73, 0.83]
+Taylor rule inflation coefficient (phi_pi): 1.68 [1.42, 1.94]
+Convergence achieved after 1,200,000 draws (4 chains)
