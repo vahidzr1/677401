@@ -1,0 +1,6 @@
+Data used in the paper:
+- Sample period: 2000Q1–2024Q4
+- Out-of-sample evaluation: 2015Q1–2024Q4 (40 forecast origins)
+- Variables: Real GDP growth, consumption growth, investment growth, CPI inflation, federal funds rate, credit spread, NFCI, VIX + 3 additional macro-financial series
+- All series seasonally adjusted and sourced from FRED, BEA, BLS, Chicago Fed
+- cleaned_data/ contains the exact dataset used in estimation and forecasting
